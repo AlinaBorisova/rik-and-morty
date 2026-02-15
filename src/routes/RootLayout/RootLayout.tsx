@@ -6,8 +6,11 @@ export const RootLayout = () => {
   return (
     <div className={style.layout}>
       <header className={style.header}>
-        <nav>
+        <nav className={style.nav}>
           <NavLink to='/'>Главная</NavLink>
+          <NavLink to='/characters'>Герои</NavLink>
+          <NavLink to='/location'>Локации</NavLink>
+          <NavLink to='/episode'>Эпизоды</NavLink>
         </nav>
       </header>
       <main>
