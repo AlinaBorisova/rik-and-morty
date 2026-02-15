@@ -1,8 +1,8 @@
 import { Link, useLoaderData } from "react-router-dom";
 import style from './CharactersPage.module.css';
 
-interface CharacterData {
-  id: string,
+export interface CharacterData {
+  id: number,
   name: string,
   status: string,
   species: string,
@@ -14,7 +14,6 @@ interface CharacterData {
 
 export const CharactersPage = () => {
   const characters = useLoaderData();
-  console.log(characters)
 
   return (
     <>
