@@ -9,6 +9,8 @@ import { locationsLoader } from "./routes/LocationsPage/LocationsPage.loader";
 import { LocationPage } from "./routes/LocationPage/LocationPage";
 import { locationLoader } from "./routes/LocationPage/LocationPage.loader";
 import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
+import { EpisodePage } from "./routes/EpisodePage/EpisodePage";
+import { episodeLoader } from "./routes/EpisodePage/EpisodePage.loader";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ export const router = createBrowserRouter([
           }
         },
         loader: episodesLoader,
+      },
+      {
+        path: 'episodes/:id',
+        element: <EpisodePage />,
+        loader: (args) => {
+          const id = args.params.id;
+          return episodeLoader(id ?? '');
+        },
       }
     ]
   }
