@@ -8,6 +8,7 @@ import { CharacterPage } from "./routes/CharacterPage/CharacterPage";
 import { locationsLoader } from "./routes/LocationsPage/LocationsPage.loader";
 import { LocationPage } from "./routes/LocationPage/LocationPage";
 import { locationLoader } from "./routes/LocationPage/LocationPage.loader";
+import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,16 @@ export const router = createBrowserRouter([
           return locationLoader(id ?? '');
         },
       },
+      {
+        path: 'episodes',
+        lazy: async () => {
+          const module = await import('./routes/EpisodesPage/EpisodesPage')
+          return {
+            element: <module.EpisodesPage />
+          }
+        },
+        loader: episodesLoader,
+      }
     ]
   }
 ]);
