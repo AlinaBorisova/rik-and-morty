@@ -1,0 +1,9 @@
+.layout {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: calc(1440px + (15px * 2));
+}
+
+.header {
+  padding: 30px 0;
+}
