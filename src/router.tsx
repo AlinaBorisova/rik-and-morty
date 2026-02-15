@@ -6,6 +6,8 @@ import { charactersLoader } from "./routes/CharactersPage/CharactersPage.loader"
 import { characterLoader } from "./routes/CharacterPage/CharacterPage.loader";
 import { CharacterPage } from "./routes/CharacterPage/CharacterPage";
 import { locationsLoader } from "./routes/LocationsPage/LocationsPage.loader";
+import { LocationPage } from "./routes/LocationPage/LocationPage";
+import { locationLoader } from "./routes/LocationPage/LocationPage.loader";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
           }
         },
         loader: locationsLoader,
+      },
+      {
+        path: 'locations/:id',
+        element: <LocationPage />,
+        loader: (args) => {
+          const id = args.params.id;
+          return locationLoader(id ?? '');
+        },
       },
     ]
   }
