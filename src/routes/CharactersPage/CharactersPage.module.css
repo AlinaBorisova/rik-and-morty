@@ -1,0 +1,21 @@
+.characterCard {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border: 1px solid #cfcfcf;
+  border-radius: 30px;
+  padding: 10px;
+  margin: 10px;
+  gap: 20px;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.characterCard img {
+  border-radius: 20px;
+  max-height: 110px;
+  object-fit: cover;
+}

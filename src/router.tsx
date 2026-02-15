@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RootLayout } from "./routes/RootLayout/RootLayout";
 import { ErrorPage } from "./routes/ErrorPage/ErrorPage";
 import { HomePage } from "./routes/HomePage/HomePage";
+import { charactersLoader } from "./routes/CharactersPage/CharactersPage.loader";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,16 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: 'characters',
+        lazy: async () => {
+          const module = await import('./routes/CharactersPage/CharactersPage')
+          return {
+            element: <module.CharactersPage />
+          }
+        },
+        loader: charactersLoader,
       }
     ]
   }
