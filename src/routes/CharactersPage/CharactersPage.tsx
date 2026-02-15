@@ -10,10 +10,10 @@ export interface CharacterData {
   gender: string,
   image: string,
   created: string
-}
+};
 
 export const CharactersPage = () => {
-  const characters = useLoaderData();
+  const characters = useLoaderData<CharacterData[]>();
 
   return (
     <>
