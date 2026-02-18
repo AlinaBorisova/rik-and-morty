@@ -6,7 +6,7 @@ export interface LocationData {
   type: string,
   dimension: string,
   created: string
-};
+}
 
 export const LocationsPage = () => {
   const locations = useLoaderData<LocationData[]>();

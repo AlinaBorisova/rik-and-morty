@@ -6,7 +6,7 @@ export interface EpisodeData {
   air_date: string,
   episode: string,
   created: string
-};
+}
 
 export const EpisodesPage = () => {
   const episodes = useLoaderData<EpisodeData[]>();
