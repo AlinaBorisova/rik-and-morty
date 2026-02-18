@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: 'location',
+        path: 'locations',
         lazy: async () => {
           const module = await import('./routes/LocationsPage/LocationsPage')
           return {

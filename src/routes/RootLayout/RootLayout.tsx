@@ -9,7 +9,7 @@ export const RootLayout = () => {
         <nav className={style.nav}>
           <NavLink to='/'>Главная</NavLink>
           <NavLink to='/characters'>Герои</NavLink>
-          <NavLink to='/location'>Локации</NavLink>
+          <NavLink to='/locations'>Локации</NavLink>
           <NavLink to='/episodes'>Эпизоды</NavLink>
         </nav>
       </header>
