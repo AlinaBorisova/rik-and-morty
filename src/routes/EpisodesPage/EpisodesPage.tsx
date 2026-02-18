@@ -16,7 +16,7 @@ export const EpisodesPage = () => {
       <h1>Episodes</h1>
       {episodes.map((episode: EpisodeData) => (
         <div key={episode.id}>
-          <Link to={`/episodes/${episode.id}`}>
+          <Link to={`${episode.id}`}>
             <h2>{episode.name}</h2>
           </Link>
         </div>

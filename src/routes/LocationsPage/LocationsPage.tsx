@@ -15,7 +15,7 @@ export const LocationsPage = () => {
       <h1>Locations</h1>
       {locations.map((location: LocationData) => (
         <div key={location.id}>
-          <Link to={`/locations/${location.id}`}>
+          <Link to={`${location.id}`}>
             <h2>{location.name}</h2>
           </Link>
         </div>
