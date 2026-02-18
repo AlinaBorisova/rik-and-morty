@@ -11,6 +11,7 @@ import { locationLoader } from "./routes/LocationPage/LocationPage.loader";
 import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
 import { EpisodePage } from "./routes/EpisodePage/EpisodePage";
 import { episodeLoader } from "./routes/EpisodePage/EpisodePage.loader";
+import {NotFoundPage} from "./routes/NotFoundPage/NotFoundPage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -75,7 +76,12 @@ export const router = createBrowserRouter([
           const id = args.params.id;
           return episodeLoader(id ?? '');
         },
-      }
+      },
+
     ]
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   }
 ]);
