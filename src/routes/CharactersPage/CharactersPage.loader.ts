@@ -1,12 +1,6 @@
 import type { CharacterData } from "./CharactersPage";
+import { loadJsonArray } from "../../utils/loaders.ts";
 
-export const charactersLoader = async (): Promise<CharacterData[]> => {
-  try {
-    const response = await fetch('/data/characters.json')
-    const data = (await response.json()) as CharacterData[];
-
-    return data;
-  } catch (error) {
-    throw new Response('Not Found', { status: 404 });
-  }
-};
+export const charactersLoader = () => {
+  return loadJsonArray<CharacterData>("/data/characters.json");
+}

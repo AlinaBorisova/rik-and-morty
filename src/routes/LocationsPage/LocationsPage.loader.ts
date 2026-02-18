@@ -1,8 +1,6 @@
 import type { LocationData } from "./LocationsPage";
+import { loadJsonArray}  from "../../utils/loaders.ts";
 
-export const locationsLoader = async (): Promise<LocationData[]> => {
-  const response = await fetch('/data/location.json')
-  const data = (await response.json()) as LocationData[];
-
-  return data;
-};
+export const locationsLoader = () => {
+  return loadJsonArray<LocationData>("/data/location.json");
+}
