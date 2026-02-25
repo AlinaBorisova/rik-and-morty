@@ -1,0 +1,61 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: start;
+}
+.label {
+  font-size: 14px;
+  color: #5e5e5e;
+}
+.inputContainer {
+  position: relative;
+}
+.input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  color: #3d3d3d;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #bdbdbd;
+  }
+
+  &::placeholder {
+    color: #bdbdbd;
+    font-size: 14px;
+  }
+}
+.withIcon {
+  padding-left: 25px;
+}
+.iconSlot {
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  display: flex;
+  color: #c3c4c3;
+  align-items: center;
+}
+.description {
+  margin: 0;
+  font-size: 11px;
+  color: #979797;
+}
+
+.errorMessage {
+  color: #ff0000;
+  font-size: 12px;
+}
+.asterisk {
+  color: #ff0000;
+}
+.inputError {
+  border-color: #ff0000;
+}
