@@ -11,6 +11,7 @@ export const RootLayout = () => {
           <NavLink to='/characters'>Герои</NavLink>
           <NavLink to='/locations'>Локации</NavLink>
           <NavLink to='/episodes'>Эпизоды</NavLink>
+          <NavLink to='/login'>Вход</NavLink>
         </nav>
       </header>
       <main>

@@ -12,6 +12,7 @@ import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
 import { EpisodePage } from "./routes/EpisodePage/EpisodePage";
 import { episodeLoader } from "./routes/EpisodePage/EpisodePage.loader";
 import {NotFoundPage} from "./routes/NotFoundPage/NotFoundPage.tsx";
+import { LoginPage } from "./routes/LoginPage/LoginPage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -77,7 +78,10 @@ export const router = createBrowserRouter([
           return episodeLoader(id ?? '');
         },
       },
-
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
     ]
   },
   {
