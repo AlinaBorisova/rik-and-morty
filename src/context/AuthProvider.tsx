@@ -13,15 +13,18 @@ export function useAuth(): AuthContextValue | null {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(() => {
+    return localStorage.getItem("user");
+  });
 
   const signin = (newUser: string, callback: () => void) => {
+    localStorage.setItem("user", newUser);
     setUser(newUser);
     callback();
   }
 
   const signout = (callback: () => void) => {
-    
+    localStorage.removeItem("user");
     callback();
     setUser(null);
   }
