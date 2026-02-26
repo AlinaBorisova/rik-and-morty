@@ -21,8 +21,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const signout = (callback: () => void) => {
-    setUser(null);
+    
     callback();
+    setUser(null);
   }
 
   const value = {

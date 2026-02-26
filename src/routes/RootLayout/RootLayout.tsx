@@ -1,8 +1,24 @@
 import { Suspense } from "react";
-import { NavLink, Outlet, ScrollRestoration } from "react-router-dom";
+import { NavLink, Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import style from "./RootLayout.module.css";
+import { useAuth } from "../../context/AuthProvider";
 
 export const RootLayout = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    if (auth) {
+      navigate("/", { replace: true });
+
+      setTimeout(() => {
+        auth.signout(() => {
+          console.log("Сессия завершена");
+        });
+      }, 100);
+    }
+  };
+
   return (
     <div className={style.layout}>
       <header className={style.header}>
@@ -11,7 +27,16 @@ export const RootLayout = () => {
           <NavLink to='/characters'>Герои</NavLink>
           <NavLink to='/locations'>Локации</NavLink>
           <NavLink to='/episodes'>Эпизоды</NavLink>
-          <NavLink to='/login'>Вход</NavLink>
+          {auth?.user ? (
+            <div className={style.userInfo}>
+              <span>{auth.user}</span>
+              <button onClick={handleLogout} className={style.logoutBtn}>
+                Выйти
+              </button>
+            </div>
+          ) : (
+            <NavLink to="/login">Вход</NavLink>
+          )}
         </nav>
       </header>
       <main>
