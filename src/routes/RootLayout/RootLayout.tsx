@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { NavLink, Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import style from "./RootLayout.module.css";
 import { useAuth } from "../../context/AuthProvider";
+import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 
 export const RootLayout = () => {
   const auth = useAuth();
@@ -41,7 +42,9 @@ export const RootLayout = () => {
       </header>
       <main>
         <Suspense fallback={<h2>Загрузка страницы</h2>}>
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </Suspense>
       </main>
       <ScrollRestoration />
