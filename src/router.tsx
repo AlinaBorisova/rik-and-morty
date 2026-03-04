@@ -1,12 +1,11 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
 import { RootLayout } from "./routes/RootLayout/RootLayout";
-import { ErrorPage } from "./routes/ErrorPage/ErrorPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<RootLayout />} errorElement={<ErrorPage />}>
+      <Route path="/" element={<RootLayout />}>
         <Route index
           lazy={async () => {
             const module = await import('./routes/HomePage/HomePage');

@@ -1,6 +1,10 @@
 import type { CharacterData } from "./CharactersPage";
-import { loadJsonArray } from "../../utils/loaders.ts";
+import { loadJsonArray, runLoader } from "../../utils/loaders.ts";
+import { CACHE_TTL_MS, cachedAsync } from "../../utils/cache.ts";
 
-export const charactersLoader = () => {
-  return loadJsonArray<CharacterData>("/data/characters.json");
-}
+export const charactersLoader = () =>
+  runLoader(() =>
+    cachedAsync("characters", CACHE_TTL_MS, () =>
+      loadJsonArray<CharacterData>("https://rickandmortyapi.com/api/character")
+    )
+  );

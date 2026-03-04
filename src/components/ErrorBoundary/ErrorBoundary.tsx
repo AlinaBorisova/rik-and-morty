@@ -1,7 +1,23 @@
 import { Component, type ErrorInfo } from "react";
+import type { LoaderErrorPayload } from "../../utils/loaders";
 
 type Props = { children: React.ReactNode };
-type State = { hasError: boolean, error: Error | null };
+type State = {
+  hasError: boolean;
+  error: Error | LoaderErrorPayload | null;
+};
+
+function getMessage(error: State["error"]): string {
+  if (!error) return "Что-то пошло не так";
+  if (typeof error === "object" && error !== null && "__error" in error) {
+    const e = error as LoaderErrorPayload;
+    if (e.status === 429) return "Слишком много запросов. Подождите немного.";
+    if (e.status === 503) return "Ошибка загрузки данных. Проверьте интернет или попробуйте позже.";
+    if (e.status === 404) return "Ресурс не найден.";
+    return e.message ?? "Ошибка загрузки";
+  }
+  return error instanceof Error ? error.message : "Что-то пошло не так";
+}
 
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
@@ -13,9 +29,9 @@ class ErrorBoundary extends Component<Props, State> {
     }
   }
 
-  static getDerivedStateFromError(error: Error) {
-    console.log('error:', error.message);
-
+  static getDerivedStateFromError(error: Error | LoaderErrorPayload): Partial<State> {
+    console.log('error:', error);
+    
     return {
       hasError: true,
       error
@@ -33,7 +49,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div>
           <h4>Что-то пошло не так</h4>
-          {this.state.error && <p>{this.state.error.message}</p>}
+          <p>{getMessage(this.state.error)}</p>
         </div>
       );
     }

@@ -1,3 +1,38 @@
+export type LoaderErrorPayload = {
+  __error: true;
+  status: number;
+  message?: string;
+};
+export function isLoaderError(data: unknown): data is LoaderErrorPayload {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "__error" in data &&
+    (data as LoaderErrorPayload).__error === true
+  );
+}
+
+export async function runLoader<T>(
+  fn: () => Promise<T>
+): Promise<T | LoaderErrorPayload> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (error instanceof Response) {
+      return {
+        __error: true,
+        status: error.status,
+        message: error.statusText || "Ошибка загрузки",
+      };
+    }
+    return {
+      __error: true,
+      status: 503,
+      message: "Ошибка загрузки данных",
+    };
+  }
+}
+
 export const loadJsonArray = async <T>(path: string): Promise<T> => {
   try {
     const response = await fetch(path);
@@ -15,13 +50,13 @@ export const loadJsonArray = async <T>(path: string): Promise<T> => {
   } catch (error) {
     if (error instanceof Response) throw error;
     console.log(error);
-    throw new Response('Not Found', { status: 404 });
+    throw new Response('Ошибка загрузки данных', { status: 503 })
   }
 };
 
 export const loadJsonItem = async<T extends { id: number }>(path: string, id: string): Promise<T> => {
   const propsId = Number(id);
-  if (Number.isNaN(propsId)) throw new Response('Not Found', { status: 404 });
+  if (Number.isNaN(propsId)) throw new Response('Ошибка загрузки данных', { status: 503 });
 
   const data = await loadJsonArray<{ results: T[] }>(path);
 
@@ -29,7 +64,7 @@ export const loadJsonItem = async<T extends { id: number }>(path: string, id: st
 
   const findItem = listItems.find((item: { id: number }) => item.id === propsId);
 
-  if (!findItem) throw new Response('Not Found', { status: 404 });
+  if (!findItem) throw new Response('Ошибка загрузки данных', { status: 503 });
 
   return findItem as T;
 };

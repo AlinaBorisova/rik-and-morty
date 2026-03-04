@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import style from './CharactersPage.module.css';
 import { useState, useRef, useCallback, useTransition } from "react";
+import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
 
 export interface CharacterData {
   results: {
@@ -33,13 +34,14 @@ export interface Character {
 }
 
 export const CharactersPage = () => {
-  const rawData = useLoaderData<CharacterData | undefined>();
-  const initialData = rawData ?? { results: [], info: { count: 0, next: null, pages: 0 } };
-  const [characters, setCharacters] = useState(initialData.results ?? []);
-  const [nextPage, setNextPage] = useState(initialData.info?.next ?? null);
+  const rawData = useLoaderData<CharacterData | LoaderErrorPayload | undefined>();
+  const fallback = { results: [] as Character[], info: { count: 0, next: null, pages: 0 } };
+  const initialData = isLoaderError(rawData) ? fallback : (rawData ?? fallback);
+  const [characters, setCharacters] = useState<Character[]>(initialData.results ?? []);
+  const [nextPage, setNextPage] = useState<string | null>(initialData.info?.next ?? null);
   const [isPending, startTransition] = useTransition();
   const [loadError, setLoadError] = useState<string | null>(null);
-  const isLoadingRef = useRef(false);
+  const isLoadingRef = useRef<boolean>(false);
 
   const loadMore = useCallback(async () => {
     if (!nextPage || isLoadingRef.current || isPending || loadError) return;
@@ -90,6 +92,8 @@ export const CharactersPage = () => {
 
     observer.current.observe(node);
   }, [loadMore]);
+
+  if (isLoaderError(rawData)) throw rawData;
 
   return (
     <>
