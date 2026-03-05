@@ -1,10 +1,13 @@
 import { useLoaderData } from "react-router-dom";
 import style from './CharacterPage.module.css';
-import { type CharacterData } from "../CharactersPage/CharactersPage";
+import { type Character } from "../CharactersPage/CharactersPage";
+import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
 
 export const CharacterPage = () => {
-  const character = useLoaderData<CharacterData>();
-
+  const data = useLoaderData<Character | LoaderErrorPayload>();
+  if (isLoaderError(data)) throw data;
+  const character = data;
+  
   return (
     <>
       <h1>Character</h1>

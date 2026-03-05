@@ -1,6 +1,12 @@
-import type { CharacterData } from "../CharactersPage/CharactersPage";
-import { loadJsonItem } from "../../utils/loaders";
+import type { Character } from "../CharactersPage/CharactersPage";
+import { loadItemFromListOrApi } from "../../utils/loaders";
 
-export const characterLoader = (id: string) => {
-  return loadJsonItem<CharacterData>("/data/characters.json", id);
-}
+const API = "https://rickandmortyapi.com/api/character";
+
+export const characterLoader = (id: string) =>
+  loadItemFromListOrApi<Character>({
+    listCacheKey: "characters",
+    itemId: id,
+    itemCacheKeyPrefix: "character",
+    apiBaseUrl: API,
+  });
