@@ -61,8 +61,7 @@ export const router = createBrowserRouter(
             ]);
             return {
               element: <PrivateRoute><pageModule.LocationPage /></PrivateRoute>,
-              loader: ({ params }: { params: { id?: string } }) =>
-                loaderModule.locationLoader(params.id ?? ''),
+              loader: loaderModule.locationLoader,
             };
           }}
         />
