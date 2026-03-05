@@ -88,8 +88,7 @@ export const router = createBrowserRouter(
             ]);
             return {
               element: <PrivateRoute><pageModule.EpisodePage /></PrivateRoute>,
-              loader: ({ params }: { params: { id?: string } }) =>
-                loaderModule.episodeLoader(params.id ?? ''),
+              loader: loaderModule.episodeLoader,
             };
           }}
         />
