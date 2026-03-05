@@ -1,4 +1,5 @@
 import { CACHE_TTL_MS, cachedAsync, getCached } from "./cache";
+import { throttledFetch } from "./apiThrottle";
 
 type ListWithResults<T> = { results: T[] };
 
@@ -40,7 +41,7 @@ export async function runLoader<T>(
 
 export const loadJsonArray = async <T>(path: string): Promise<T> => {
   try {
-    const response = await fetch(path);
+    const response = await throttledFetch(path);
 
     if (!response.ok) {
       throw new Response(await response.text(), {
