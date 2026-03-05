@@ -1,8 +1,13 @@
+import { CACHE_TTL_MS, cachedAsync, getCached } from "./cache";
+
+type ListWithResults<T> = { results: T[] };
+
 export type LoaderErrorPayload = {
   __error: true;
   status: number;
   message?: string;
 };
+
 export function isLoaderError(data: unknown): data is LoaderErrorPayload {
   return (
     typeof data === "object" &&
@@ -68,3 +73,24 @@ export const loadJsonItem = async<T extends { id: number }>(path: string, id: st
 
   return findItem as T;
 };
+
+export async function loadItemFromListOrApi<T extends { id: number }>(config: {
+  listCacheKey: string;
+  itemId: string;
+  itemCacheKeyPrefix: string;
+  apiBaseUrl: string;
+}): Promise<T | LoaderErrorPayload> {
+  return runLoader(async () => {
+    const list = getCached<ListWithResults<T>>(config.listCacheKey);
+    const numId = Number(config.itemId);
+    if (list?.results && Number.isInteger(numId)) {
+      const fromList = list.results.find((item) => item.id === numId);
+      if (fromList) return fromList;
+    }
+    return cachedAsync(
+      `${config.itemCacheKeyPrefix}-${config.itemId}`,
+      CACHE_TTL_MS,
+      () => loadJsonArray<T>(`${config.apiBaseUrl}/${config.itemId}`)
+    );
+  });
+}

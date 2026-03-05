@@ -19,3 +19,10 @@ export async function cachedAsync<T>(
   
   return data;
 }
+
+export function getCached<T>(key: string): T | null {
+  const entry = cacheStore.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.timestamp >= CACHE_TTL_MS) return null;
+  return entry.data as T;
+}
