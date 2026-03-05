@@ -2,25 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import style from './CharactersPage.module.css';
 import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-
-export interface CharacterData {
-  results: {
-    id: number,
-    name: string,
-    status: string,
-    species: string,
-    type: string,
-    gender: string,
-    image: string,
-    created: string,
-  }[],
-
-  info: {
-    count: number,
-    next: string | null,
-    pages: number
-  }
-}
+import type { ApiPaginatedResponse } from "../../types/api";
 
 export interface Character {
   id: number,
@@ -34,7 +16,7 @@ export interface Character {
 }
 
 export const CharactersPage = () => {
-  const rawData = useLoaderData<CharacterData | LoaderErrorPayload | undefined>();
+  const rawData = useLoaderData<ApiPaginatedResponse<Character> | LoaderErrorPayload | undefined>()
   const fallback = { results: [] as Character[], info: { count: 0, next: null, pages: 0 } };
   const initialData = isLoaderError(rawData) ? fallback : (rawData ?? fallback);
   const { items: characters, lastNodeRef, isPending, isLoadingMore, loadError } = useInfiniteScroll<Character>(
