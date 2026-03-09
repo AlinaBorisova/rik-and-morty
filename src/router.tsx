@@ -12,6 +12,8 @@ import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
 import { EpisodePage } from "./routes/EpisodePage/EpisodePage";
 import { episodeLoader } from "./routes/EpisodePage/EpisodePage.loader";
 import {NotFoundPage} from "./routes/NotFoundPage/NotFoundPage.tsx";
+import { LoginPage } from "./routes/LoginPage/LoginPage.tsx";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -28,14 +30,14 @@ export const router = createBrowserRouter([
         lazy: async () => {
           const module = await import('./routes/CharactersPage/CharactersPage')
           return {
-            element: <module.CharactersPage />
+            element: <PrivateRoute><module.CharactersPage /></PrivateRoute>
           }
         },
         loader: charactersLoader,
       },
       {
         path: 'characters/:id',
-        element: <CharacterPage />,
+        element: <PrivateRoute><CharacterPage /></PrivateRoute>,
         loader: (args) => {
           const id = args.params.id;
           return characterLoader(id ?? '');
@@ -46,14 +48,14 @@ export const router = createBrowserRouter([
         lazy: async () => {
           const module = await import('./routes/LocationsPage/LocationsPage')
           return {
-            element: <module.LocationsPage />
+            element: <PrivateRoute><module.LocationsPage /></PrivateRoute>
           }
         },
         loader: locationsLoader,
       },
       {
         path: 'locations/:id',
-        element: <LocationPage />,
+        element: <PrivateRoute><LocationPage /></PrivateRoute>,
         loader: (args) => {
           const id = args.params.id;
           return locationLoader(id ?? '');
@@ -64,21 +66,25 @@ export const router = createBrowserRouter([
         lazy: async () => {
           const module = await import('./routes/EpisodesPage/EpisodesPage')
           return {
-            element: <module.EpisodesPage />
+            element: <PrivateRoute><module.EpisodesPage /></PrivateRoute>
           }
         },
         loader: episodesLoader,
       },
       {
         path: 'episodes/:id',
-        element: <EpisodePage />,
+        element: <PrivateRoute><EpisodePage /></PrivateRoute>,
         loader: (args) => {
           const id = args.params.id;
           return episodeLoader(id ?? '');
         },
       },
-
+      
     ]
+  },
+  {
+    path: '/login',
+    element: <LoginPage />,
   },
   {
     path: '*',
