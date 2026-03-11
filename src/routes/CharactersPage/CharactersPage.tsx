@@ -1,4 +1,5 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
 import style from './CharactersPage.module.css';
 import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
@@ -16,19 +17,32 @@ export interface Character {
 }
 
 export const CharactersPage = () => {
-  const rawData = useLoaderData<ApiPaginatedResponse<Character> | LoaderErrorPayload | undefined>()
-  const fallback = { results: [] as Character[], info: { count: 0, next: null, pages: 0 } };
-  const initialData = isLoaderError(rawData) ? fallback : (rawData ?? fallback);
+  const { characters: charactersPromise } = useLoaderData() as {
+    characters: Promise<ApiPaginatedResponse<Character> | LoaderErrorPayload>;
+  };
+  return (
+    <>
+      <h1>Characters</h1>
+      <Suspense fallback={<h2>Загрузка...</h2>}>
+        <Await resolve={charactersPromise}>
+          {(data) => {
+            if (isLoaderError(data)) throw data;
+            return <CharactersList initialData={data} />;
+          }}
+        </Await>
+      </Suspense>
+    </>
+  );
+};
+
+export const CharactersList = ({ initialData }: { initialData: ApiPaginatedResponse<Character> }) => {
   const { items: characters, lastNodeRef, isPending, isLoadingMore, loadError } = useInfiniteScroll<Character>(
     initialData.results ?? [],
     initialData.info?.next ?? null
   );
   
-  if (isLoaderError(rawData)) throw rawData;
-
   return (
     <>
-      <h1>Characters</h1>
       {characters.map((character: Character) => (
         <div key={character.id}>
           <Link to={`${character.id}`} className={style.characterCard}>

@@ -1,4 +1,5 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
 import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import type { ApiPaginatedResponse } from "../../types/api";
@@ -11,20 +12,34 @@ export interface Episode {
   created: string
 }
 
+
 export const EpisodesPage = () => {
-  const rawData = useLoaderData<ApiPaginatedResponse<Episode> | LoaderErrorPayload | undefined>();
-  const fallback = { results: [] as Episode[], info: { count: 0, next: null, pages: 0 } };
-  const initialData = isLoaderError(rawData) ? fallback : (rawData ?? fallback);
+  const { episodes: episodesPromise } = useLoaderData() as {
+    episodes: Promise<ApiPaginatedResponse<Episode> | LoaderErrorPayload>;
+  };
+  return (
+    <>
+      <h1>Episodes</h1>
+      <Suspense fallback={<h2>Загрузка...</h2>}>
+        <Await resolve={episodesPromise}>
+          {(data) => {
+            if (isLoaderError(data)) throw data;
+            return <EpisodesList initialData={data} />;
+          }}
+        </Await>
+      </Suspense>
+    </>
+  );
+};
+
+export const EpisodesList = ({ initialData }: { initialData: ApiPaginatedResponse<Episode> }) => {
   const { items: episodes, lastNodeRef, isPending, isLoadingMore, loadError } = useInfiniteScroll<Episode>(
     initialData.results ?? [],
     initialData.info?.next ?? null
   );
 
-  if (isLoaderError(rawData)) throw rawData;
-
   return (
     <>
-      <h1>Episodes</h1>
       {episodes.map((episode: Episode) => (
         <div key={episode.id}>
           <Link to={`${episode.id}`}>
