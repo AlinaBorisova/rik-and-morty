@@ -1,0 +1,1 @@
+export const LOCATION_API_BASE = "https://rickandmortyapi.com/api/location";

@@ -1,5 +1,5 @@
 import { useLoaderData, Await } from "react-router-dom";
-import { type Location } from "../LocationsPage/LocationsPage";
+import type { Location } from "../../entities/location";
 import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { Suspense } from "react"
 

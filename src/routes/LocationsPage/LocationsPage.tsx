@@ -3,15 +3,9 @@ import { Suspense } from "react";
 import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
 import type { ApiPaginatedResponse } from "../../shared/types/api";
+import type { Location } from "../../entities/location";
 
 
-export interface Location {
-  id: number,
-  name: string,
-  type: string,
-  dimension: string,
-  created: string
-}
 
 export const LocationsPage = () => {
   const { locations: locationsPromise } = useLoaderData() as {
