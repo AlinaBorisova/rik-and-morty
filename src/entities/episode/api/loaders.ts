@@ -1,9 +1,8 @@
 import type { Episode } from "../model";
-import { loadItemFromListOrApi } from "../../../shared/lib/loaders";
+import { loadItemFromListOrApi, loadJsonArray, runLoader } from "@/shared/lib/loaders";
+import { CACHE_TTL_MS, cachedAsync } from "@/shared/lib/cache";
+import type { ApiPaginatedResponse } from "@/shared/types/api";
 import { EPISODE_API_BASE } from "./constants";
-import { loadJsonArray, runLoader } from "../../../shared/lib/loaders";
-import { CACHE_TTL_MS, cachedAsync } from "../../../shared/lib/cache";
-import type { ApiPaginatedResponse } from "../../../shared/types/api";
 
 export const episodeLoader = ({ params }: { params: { id?: string } }) => {
   const id = params.id ?? "";

@@ -1,2 +1,2 @@
-export { episodeLoader } from "../../entities/episode/api";
+export { episodeLoader } from "@/entities/episode/api";
  

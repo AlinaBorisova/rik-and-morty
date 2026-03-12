@@ -1,6 +1,6 @@
 import { Await, useLoaderData } from "react-router-dom";
-import type { Episode } from "../../entities/episode";
-import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
+import type { Episode } from "@/entities/episode";
+import { isLoaderError, type LoaderErrorPayload } from "@/shared/lib/loaders";
 import { Suspense } from "react";
 
 export const EpisodePage = () => {

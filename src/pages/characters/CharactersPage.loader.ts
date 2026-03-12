@@ -1,1 +1,1 @@
-export { charactersLoader } from "../../entities/character/api";
+export { charactersLoader } from "@/entities/character/api";

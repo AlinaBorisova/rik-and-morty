@@ -1,10 +1,10 @@
 import { Await, Link, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
 import style from './CharactersPage.module.css';
-import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
-import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
-import type { ApiPaginatedResponse } from "../../shared/types/api";
-import type { Character } from "../../entities/character";
+import { isLoaderError, type LoaderErrorPayload } from "@/shared/lib/loaders";
+import { useInfiniteScroll } from "@/shared/lib/useInfiniteScroll";
+import type { ApiPaginatedResponse } from "@/shared/types/api";
+import type { Character } from "@/entities/character";
 
 export const CharactersPage = () => {
   const { characters: charactersPromise } = useLoaderData() as {

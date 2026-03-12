@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { Signin, type SigninForm } from "../../features/auth";
-import { useAuth } from "../../features/auth";
+import { Signin, type SigninForm } from "@/features/auth";
+import { useAuth } from "@/features/auth";
 import { useEffect } from "react";
 
 interface LocationState {

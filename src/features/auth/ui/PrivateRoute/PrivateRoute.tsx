@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../model";
+import { useAuth } from "@/features/auth";
 
 export function PrivateRoute({ children }: { children: React.ReactNode }) {
   const auth = useAuth();

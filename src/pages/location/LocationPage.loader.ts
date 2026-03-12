@@ -1,1 +1,1 @@
-export { locationLoader } from "../../entities/location/api";
+export { locationLoader } from "@/entities/location/api";

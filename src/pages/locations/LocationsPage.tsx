@@ -1,9 +1,9 @@
 import { Await, Link, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
-import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
-import type { ApiPaginatedResponse } from "../../shared/types/api";
-import type { Location } from "../../entities/location";
+import { isLoaderError, type LoaderErrorPayload } from "@/shared/lib/loaders";
+import { useInfiniteScroll } from "@/shared/lib/useInfiniteScroll";
+import type { ApiPaginatedResponse } from "@/shared/types/api";
+import type { Location } from "@/entities/location";
 
 
 

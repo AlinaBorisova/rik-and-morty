@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
 import { RootLayout } from "./ui/RootLayout";
-import { PrivateRoute } from "../features/auth";
+import { PrivateRoute } from "@/features/auth";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
