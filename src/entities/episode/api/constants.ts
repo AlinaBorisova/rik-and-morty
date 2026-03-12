@@ -1,0 +1,1 @@
+export const EPISODE_API_BASE = "https://rickandmortyapi.com/api/episode";

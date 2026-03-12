@@ -3,14 +3,7 @@ import { Suspense } from "react";
 import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
 import type { ApiPaginatedResponse } from "../../shared/types/api";
-
-export interface Episode {
-  id: number,
-  name: string,
-  air_date: string,
-  episode: string,
-  created: string
-}
+import type { Episode } from "../../entities/episode";
 
 
 export const EpisodesPage = () => {
