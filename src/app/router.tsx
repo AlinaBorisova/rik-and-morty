@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
-import { RootLayout } from "./routes/RootLayout/RootLayout";
-import { PrivateRoute } from "./features/auth";
+import { RootLayout } from "./ui/RootLayout";
+import { PrivateRoute } from "../features/auth";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -8,7 +8,7 @@ export const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />}>
         <Route index
           lazy={async () => {
-            const module = await import('./routes/HomePage/HomePage');
+            const module = await import('../routes/HomePage/HomePage');
             return { element: <module.HomePage /> };
           }}
         />
@@ -16,8 +16,8 @@ export const router = createBrowserRouter(
           path="characters"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/CharactersPage/CharactersPage'),
-              import('./routes/CharactersPage/CharactersPage.loader'),
+              import('../routes/CharactersPage/CharactersPage'),
+              import('../routes/CharactersPage/CharactersPage.loader'),
             ]);
             return {
               element: <PrivateRoute><pageModule.CharactersPage /></PrivateRoute>,
@@ -29,8 +29,8 @@ export const router = createBrowserRouter(
           path="characters/:id"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/CharacterPage/CharacterPage'),
-              import('./routes/CharacterPage/CharacterPage.loader')
+              import('../routes/CharacterPage/CharacterPage'),
+              import('../routes/CharacterPage/CharacterPage.loader')
             ]);
             return {
               element: <PrivateRoute><pageModule.CharacterPage /></PrivateRoute>,
@@ -42,8 +42,8 @@ export const router = createBrowserRouter(
           path="locations"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/LocationsPage/LocationsPage'),
-              import('./routes/LocationsPage/LocationsPage.loader')
+              import('../routes/LocationsPage/LocationsPage'),
+              import('../routes/LocationsPage/LocationsPage.loader')
             ])
 
             return {
@@ -56,8 +56,8 @@ export const router = createBrowserRouter(
           path="locations/:id"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/LocationPage/LocationPage'),
-              import('./routes/LocationPage/LocationPage.loader'),
+              import('../routes/LocationPage/LocationPage'),
+              import('../routes/LocationPage/LocationPage.loader'),
             ]);
             return {
               element: <PrivateRoute><pageModule.LocationPage /></PrivateRoute>,
@@ -69,8 +69,8 @@ export const router = createBrowserRouter(
           path="episodes"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/EpisodesPage/EpisodesPage'),
-              import('./routes/EpisodesPage/EpisodesPage.loader'),
+              import('../routes/EpisodesPage/EpisodesPage'),
+              import('../routes/EpisodesPage/EpisodesPage.loader'),
             ]);
             return {
               element: <PrivateRoute><pageModule.EpisodesPage /></PrivateRoute>,
@@ -82,8 +82,8 @@ export const router = createBrowserRouter(
           path="episodes/:id"
           lazy={async () => {
             const [pageModule, loaderModule] = await Promise.all([
-              import('./routes/EpisodePage/EpisodePage'),
-              import('./routes/EpisodePage/EpisodePage.loader'),
+              import('../routes/EpisodePage/EpisodePage'),
+              import('../routes/EpisodePage/EpisodePage.loader'),
             ]);
             return {
               element: <PrivateRoute><pageModule.EpisodePage /></PrivateRoute>,
@@ -95,14 +95,14 @@ export const router = createBrowserRouter(
       <Route
         path="/login"
         lazy={async () => {
-          const module = await import('./routes/LoginPage/LoginPage');
+          const module = await import('../routes/LoginPage/LoginPage');
           return { element: <module.LoginPage /> };
         }}
       />
       <Route
         path="*"
         lazy={async () => {
-          const module = await import('./routes/NotFoundPage/NotFoundPage');
+          const module = await import('../routes/NotFoundPage/NotFoundPage');
           return { element: <module.NotFoundPage /> };
         }}
       />
