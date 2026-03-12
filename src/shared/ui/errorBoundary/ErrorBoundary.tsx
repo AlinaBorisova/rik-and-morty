@@ -19,7 +19,7 @@ function getMessage(error: State["error"]): string {
   return error instanceof Error ? error.message : "Что-то пошло не так";
 }
 
-class ErrorBoundary extends Component<Props, State> {
+export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -57,5 +57,3 @@ class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
-
-export default ErrorBoundary;
