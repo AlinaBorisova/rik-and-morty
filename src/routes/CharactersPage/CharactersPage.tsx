@@ -4,17 +4,7 @@ import style from './CharactersPage.module.css';
 import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
 import type { ApiPaginatedResponse } from "../../shared/types/api";
-
-export interface Character {
-  id: number,
-  name: string,
-  status: string,
-  species: string,
-  type: string,
-  gender: string,
-  image: string,
-  created: string,
-}
+import type { Character } from "../../entities/character";
 
 export const CharactersPage = () => {
   const { characters: charactersPromise } = useLoaderData() as {
