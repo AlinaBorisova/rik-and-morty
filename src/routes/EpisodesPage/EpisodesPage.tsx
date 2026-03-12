@@ -1,8 +1,8 @@
 import { Await, Link, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
-import type { ApiPaginatedResponse } from "../../types/api";
+import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
+import { useInfiniteScroll } from "../../shared/lib/useInfiniteScroll";
+import type { ApiPaginatedResponse } from "../../shared/types/api";
 
 export interface Episode {
   id: number,

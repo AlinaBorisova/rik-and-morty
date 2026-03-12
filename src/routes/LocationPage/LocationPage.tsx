@@ -1,6 +1,6 @@
 import { useLoaderData, Await } from "react-router-dom";
 import { type Location } from "../LocationsPage/LocationsPage";
-import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
+import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { Suspense } from "react"
 
 export const LocationPage = () => {
@@ -15,7 +15,7 @@ export const LocationPage = () => {
         <Await resolve={locationPromise}>
         {(location) => {
             if (isLoaderError(location)) throw location;
-            console.log(location);
+
             return (
               <div>
                 <h2>{location.name}</h2>

@@ -1,7 +1,7 @@
 import { useLoaderData, Await } from "react-router-dom";
 import style from './CharacterPage.module.css';
 import { type Character } from "../CharactersPage/CharactersPage";
-import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
+import { isLoaderError, type LoaderErrorPayload } from "../../shared/lib/loaders";
 import { Suspense } from "react";
 
 export const CharacterPage = () => {

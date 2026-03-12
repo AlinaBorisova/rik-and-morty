@@ -1,7 +1,7 @@
 import type { Location } from "./LocationsPage";
-import { loadJsonArray, runLoader}  from "../../utils/loaders.ts";
-import type { ApiPaginatedResponse } from "../../types/api.ts";
-import { CACHE_TTL_MS, cachedAsync } from "../../utils/cache.ts";
+import { loadJsonArray, runLoader}  from "../../shared/lib/loaders";
+import type { ApiPaginatedResponse } from "../../shared/types/api";
+import { CACHE_TTL_MS, cachedAsync } from "../../shared/lib/cache";
 
 export const locationsLoader = () => {
   const locationsPromise = runLoader(() =>

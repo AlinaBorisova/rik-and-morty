@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { NavLink, Outlet, ScrollRestoration, useNavigate, useLocation } from "react-router-dom";
 import style from "./RootLayout.module.css";
 import { useAuth } from "../../context/AuthProvider";
-import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
+import ErrorBoundary from "../../shared/ui/error-boundary/ErrorBoundary";
 
 export const RootLayout = () => {
   const auth = useAuth();

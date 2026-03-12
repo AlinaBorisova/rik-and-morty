@@ -1,5 +1,5 @@
 import type { Location } from "../LocationsPage/LocationsPage";
-import { loadItemFromListOrApi } from "../../utils/loaders";
+import { loadItemFromListOrApi } from "../../shared/lib/loaders";
 
 const API_LOCATIONS = "https://rickandmortyapi.com/api/location";
 

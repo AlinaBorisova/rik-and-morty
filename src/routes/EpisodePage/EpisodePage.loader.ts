@@ -1,5 +1,5 @@
 import type { Episode } from "../EpisodesPage/EpisodesPage";
-import { loadItemFromListOrApi, loadJsonItem } from "../../utils/loaders";
+import { loadItemFromListOrApi } from "../../shared/lib/loaders";
 
 const API_EPISODES = "https://rickandmortyapi.com/api/episode";
 

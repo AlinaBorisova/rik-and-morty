@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useTransition } from "react";
-import { throttledFetch } from "../utils/apiThrottle";
+import { throttledFetch } from "./apiThrottle";
 
 export interface PaginatedResponse<T> {
   results: T[];

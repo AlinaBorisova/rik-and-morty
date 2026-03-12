@@ -1,5 +1,5 @@
 import type { Character } from "../CharactersPage/CharactersPage";
-import { loadItemFromListOrApi } from "../../utils/loaders";
+import { loadItemFromListOrApi } from "../../shared/lib/loaders";
 
 const API = "https://rickandmortyapi.com/api/character";
 

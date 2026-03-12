@@ -1,5 +1,5 @@
 import { Component, type ErrorInfo } from "react";
-import type { LoaderErrorPayload } from "../../utils/loaders";
+import type { LoaderErrorPayload } from "../../lib/loaders";
 
 type Props = { children: React.ReactNode };
 type State = {

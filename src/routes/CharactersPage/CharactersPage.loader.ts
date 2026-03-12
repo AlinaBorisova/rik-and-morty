@@ -1,7 +1,7 @@
 import type { Character } from "./CharactersPage";
-import { loadJsonArray, runLoader } from "../../utils/loaders.ts";
-import { CACHE_TTL_MS, cachedAsync } from "../../utils/cache.ts";
-import type { ApiPaginatedResponse } from "../../types/api.ts";
+import { loadJsonArray, runLoader } from "../../shared/lib/loaders";
+import { CACHE_TTL_MS, cachedAsync } from "../../shared/lib/cache";
+import type { ApiPaginatedResponse } from "../../shared/types/api";
 
 export const charactersLoader = () => {
   const charactersPromise = runLoader(() =>

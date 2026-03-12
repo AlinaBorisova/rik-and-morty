@@ -1,6 +1,6 @@
-import { TextInput } from '../TextInput/TextInput';
+import { TextInput } from '../../shared/ui/text-input/TextInput';
 import styles from './Signin.module.css';
-import { FormButton } from '../FormButton/FormButton';
+import { FormButton } from '../../shared/ui/form-button/FormButton';
 import { useActionState, useEffect } from 'react';
 
 export interface SigninForm {

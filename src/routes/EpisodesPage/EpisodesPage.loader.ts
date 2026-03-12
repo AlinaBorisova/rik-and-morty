@@ -1,7 +1,7 @@
 import type { Episode } from "./EpisodesPage";
-import { loadJsonArray, runLoader } from "../../utils/loaders";
-import { CACHE_TTL_MS, cachedAsync } from "../../utils/cache";
-import type { ApiPaginatedResponse } from "../../types/api";
+import { loadJsonArray, runLoader } from "../../shared/lib/loaders";
+import { CACHE_TTL_MS, cachedAsync } from "../../shared/lib/cache";
+import type { ApiPaginatedResponse } from "../../shared/types/api";
 
 export const episodesLoader = () => {
   const episodesPromise = runLoader(() =>
