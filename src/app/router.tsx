@@ -1,10 +1,11 @@
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
+import { createBrowserRouter, createRoutesFromElements, Route, Outlet } from "react-router";
 import { RootLayout } from "./ui/RootLayout";
+import { RouteErrorHandler } from "./ui/RouteErrorHandler";
 import { PrivateRoute } from "@/features/auth";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route element={<Outlet />} errorElement={<RouteErrorHandler />}>
       <Route path="/" element={<RootLayout />}>
         <Route index
           lazy={async () => {
@@ -106,6 +107,6 @@ export const router = createBrowserRouter(
           return { element: <module.NotFoundPage /> };
         }}
       />
-    </>
+    </Route>
   )
 );

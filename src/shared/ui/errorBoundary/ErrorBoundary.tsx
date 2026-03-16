@@ -7,6 +7,16 @@ type State = {
   error: Error | LoaderErrorPayload | null;
 };
 
+function isOfflineOrChunkError(error: unknown): boolean {
+  if (typeof navigator !== "undefined" && !navigator.onLine) return true;
+  const msg = error instanceof Error ? error.message : String(error ?? "");
+  return (
+    msg.includes("Failed to fetch dynamically imported module") ||
+    msg.includes("ChunkLoadError") ||
+    msg.includes("Loading chunk")
+  );
+}
+
 function getMessage(error: State["error"]): string {
   if (!error) return "Что-то пошло не так";
   if (typeof error === "object" && error !== null && "__error" in error) {
@@ -41,6 +51,12 @@ export class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.log('error:', error);
     console.log('errorInfo:', errorInfo);
+
+    if (isOfflineOrChunkError(error)) {
+      window.location.href = "/offline.html";
+      return;
+    }
+
     this.setState({ hasError: true });
   }
 

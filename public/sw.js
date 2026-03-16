@@ -55,8 +55,14 @@ async function networkFirst(request) {
     return response;
   } catch (error) {
     const cached = await cache.match(request);
-    const fallback = request.mode === 'navigate' ? '/index.html' : '/offline.html';
-    
-    return cached || await caches.match(fallback);
+    if (cached) return cached;
+    if (request.mode === 'navigate') {
+      return caches.match('/index.html');
+    }
+    if (request.destination === 'script' || request.destination === 'style') {
+      throw error;
+    }
+
+    return await caches.match('/offline.html');
   }
 }
