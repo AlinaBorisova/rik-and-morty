@@ -29,7 +29,12 @@ export const RootLayout = () => {
           <NavLink to='/characters'>Герои</NavLink>
           <NavLink to='/locations'>Локации</NavLink>
           <NavLink to='/episodes'>Эпизоды</NavLink>
-          {auth?.user ? (
+
+          
+
+        </nav>
+
+        {auth?.user ? (
             <div className={style.userInfo}>
               <span>{auth.user}</span>
               <button onClick={handleLogout} className={style.logoutBtn}>
@@ -39,9 +44,8 @@ export const RootLayout = () => {
           ) : (
             <NavLink to="/login">Вход</NavLink>
           )}
-        </nav>
       </header>
-      <main>
+      <main className={style.main}>
         <Suspense fallback={<h2>Загрузка страницы</h2>}>
           <ErrorBoundary key={location.pathname}>
             <Outlet />
