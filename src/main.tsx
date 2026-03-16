@@ -10,3 +10,9 @@ createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </AuthProvider>,
 )
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
