@@ -1,0 +1,104 @@
+.page {
+  min-height: 60vh;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #97ce4c 0%, #6b8e23 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  opacity: 0.85;
+  margin: 0 0 2rem;
+  font-weight: 400;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.intro {
+  max-width: 560px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  display: block;
+  padding: 1.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.card:hover {
+  background: rgba(151, 206, 76, 0.08);
+  border-color: rgba(151, 206, 76, 0.35);
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #97ce4c;
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+@media (prefers-color-scheme: light) {
+  .title {
+    background: linear-gradient(135deg, #6b8e23 0%, #97ce4c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .card:hover {
+    background: rgba(107, 142, 35, 0.06);
+    border-color: rgba(107, 142, 35, 0.3);
+  }
+
+  .cardTitle {
+    color: #5a7a1e;
+  }
+}

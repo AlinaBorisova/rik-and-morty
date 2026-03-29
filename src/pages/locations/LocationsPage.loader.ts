@@ -1,0 +1,1 @@
+export { locationsLoader } from "@/entities/location/api";
