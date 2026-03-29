@@ -1,6 +1,17 @@
-import type { EpisodeData } from "../EpisodesPage/EpisodesPage";
-import { loadJsonItem } from "../../utils/loaders";
+import type { Episode } from "../EpisodesPage/EpisodesPage";
+import { loadItemFromListOrApi, loadJsonItem } from "../../utils/loaders";
 
-export const episodeLoader = (id: string) => {
-  return loadJsonItem<EpisodeData>("/data/episode.json", id);
-}
+const API_EPISODES = "https://rickandmortyapi.com/api/episode";
+
+export const episodeLoader = ({ params }: { params: { id?: string } }) => {
+  const id = params.id ?? "";
+  return {
+    episode: loadItemFromListOrApi<Episode>({
+      listCacheKey: "episodes",
+      itemId: id,
+      itemCacheKeyPrefix: "episode",
+      apiBaseUrl: API_EPISODES,
+    }),
+  };
+};
+

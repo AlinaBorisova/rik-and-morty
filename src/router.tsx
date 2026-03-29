@@ -1,93 +1,111 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router";
 import { RootLayout } from "./routes/RootLayout/RootLayout";
-import { ErrorPage } from "./routes/ErrorPage/ErrorPage";
-import { HomePage } from "./routes/HomePage/HomePage";
-import { charactersLoader } from "./routes/CharactersPage/CharactersPage.loader";
-import { characterLoader } from "./routes/CharacterPage/CharacterPage.loader";
-import { CharacterPage } from "./routes/CharacterPage/CharacterPage";
-import { locationsLoader } from "./routes/LocationsPage/LocationsPage.loader";
-import { LocationPage } from "./routes/LocationPage/LocationPage";
-import { locationLoader } from "./routes/LocationPage/LocationPage.loader";
-import { episodesLoader } from "./routes/EpisodesPage/EpisodesPage.loader";
-import { EpisodePage } from "./routes/EpisodePage/EpisodePage";
-import { episodeLoader } from "./routes/EpisodePage/EpisodePage.loader";
-import {NotFoundPage} from "./routes/NotFoundPage/NotFoundPage.tsx";
-import { LoginPage } from "./routes/LoginPage/LoginPage.tsx";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />
-      },
-      {
-        path: 'characters',
-        lazy: async () => {
-          const module = await import('./routes/CharactersPage/CharactersPage')
-          return {
-            element: <PrivateRoute><module.CharactersPage /></PrivateRoute>
-          }
-        },
-        loader: charactersLoader,
-      },
-      {
-        path: 'characters/:id',
-        element: <PrivateRoute><CharacterPage /></PrivateRoute>,
-        loader: (args) => {
-          const id = args.params.id;
-          return characterLoader(id ?? '');
-        },
-      },
-      {
-        path: 'locations',
-        lazy: async () => {
-          const module = await import('./routes/LocationsPage/LocationsPage')
-          return {
-            element: <PrivateRoute><module.LocationsPage /></PrivateRoute>
-          }
-        },
-        loader: locationsLoader,
-      },
-      {
-        path: 'locations/:id',
-        element: <PrivateRoute><LocationPage /></PrivateRoute>,
-        loader: (args) => {
-          const id = args.params.id;
-          return locationLoader(id ?? '');
-        },
-      },
-      {
-        path: 'episodes',
-        lazy: async () => {
-          const module = await import('./routes/EpisodesPage/EpisodesPage')
-          return {
-            element: <PrivateRoute><module.EpisodesPage /></PrivateRoute>
-          }
-        },
-        loader: episodesLoader,
-      },
-      {
-        path: 'episodes/:id',
-        element: <PrivateRoute><EpisodePage /></PrivateRoute>,
-        loader: (args) => {
-          const id = args.params.id;
-          return episodeLoader(id ?? '');
-        },
-      },
-      
-    ]
-  },
-  {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '*',
-    element: <NotFoundPage />,
-  }
-]);
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<RootLayout />}>
+        <Route index
+          lazy={async () => {
+            const module = await import('./routes/HomePage/HomePage');
+            return { element: <module.HomePage /> };
+          }}
+        />
+        <Route
+          path="characters"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/CharactersPage/CharactersPage'),
+              import('./routes/CharactersPage/CharactersPage.loader'),
+            ]);
+            return {
+              element: <PrivateRoute><pageModule.CharactersPage /></PrivateRoute>,
+              loader: loaderModule.charactersLoader,
+            };
+          }}
+        />
+        <Route
+          path="characters/:id"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/CharacterPage/CharacterPage'),
+              import('./routes/CharacterPage/CharacterPage.loader')
+            ]);
+            return {
+              element: <PrivateRoute><pageModule.CharacterPage /></PrivateRoute>,
+              loader: loaderModule.characterLoader,
+            };
+          }}
+        />
+        <Route
+          path="locations"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/LocationsPage/LocationsPage'),
+              import('./routes/LocationsPage/LocationsPage.loader')
+            ])
+
+            return {
+              element: <PrivateRoute><pageModule.LocationsPage /></PrivateRoute>,
+              loader: loaderModule.locationsLoader,
+            };
+          }}
+        />
+        <Route
+          path="locations/:id"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/LocationPage/LocationPage'),
+              import('./routes/LocationPage/LocationPage.loader'),
+            ]);
+            return {
+              element: <PrivateRoute><pageModule.LocationPage /></PrivateRoute>,
+              loader: loaderModule.locationLoader,
+            };
+          }}
+        />
+        <Route
+          path="episodes"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/EpisodesPage/EpisodesPage'),
+              import('./routes/EpisodesPage/EpisodesPage.loader'),
+            ]);
+            return {
+              element: <PrivateRoute><pageModule.EpisodesPage /></PrivateRoute>,
+              loader: loaderModule.episodesLoader,
+            };
+          }}
+        />
+        <Route
+          path="episodes/:id"
+          lazy={async () => {
+            const [pageModule, loaderModule] = await Promise.all([
+              import('./routes/EpisodePage/EpisodePage'),
+              import('./routes/EpisodePage/EpisodePage.loader'),
+            ]);
+            return {
+              element: <PrivateRoute><pageModule.EpisodePage /></PrivateRoute>,
+              loader: loaderModule.episodeLoader,
+            };
+          }}
+        />
+      </Route>
+      <Route
+        path="/login"
+        lazy={async () => {
+          const module = await import('./routes/LoginPage/LoginPage');
+          return { element: <module.LoginPage /> };
+        }}
+      />
+      <Route
+        path="*"
+        lazy={async () => {
+          const module = await import('./routes/NotFoundPage/NotFoundPage');
+          return { element: <module.NotFoundPage /> };
+        }}
+      />
+    </>
+  )
+);

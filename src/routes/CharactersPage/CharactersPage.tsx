@@ -1,7 +1,11 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
 import style from './CharactersPage.module.css';
+import { isLoaderError, type LoaderErrorPayload } from "../../utils/loaders";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import type { ApiPaginatedResponse } from "../../types/api";
 
-export interface CharacterData {
+export interface Character {
   id: number,
   name: string,
   status: string,
@@ -9,16 +13,37 @@ export interface CharacterData {
   type: string,
   gender: string,
   image: string,
-  created: string
+  created: string,
 }
 
 export const CharactersPage = () => {
-  const characters = useLoaderData<CharacterData[]>();
-
+  const { characters: charactersPromise } = useLoaderData() as {
+    characters: Promise<ApiPaginatedResponse<Character> | LoaderErrorPayload>;
+  };
   return (
     <>
       <h1>Characters</h1>
-      {characters.map((character: CharacterData) => (
+      <Suspense fallback={<h2>Загрузка...</h2>}>
+        <Await resolve={charactersPromise}>
+          {(data) => {
+            if (isLoaderError(data)) throw data;
+            return <CharactersList initialData={data} />;
+          }}
+        </Await>
+      </Suspense>
+    </>
+  );
+};
+
+export const CharactersList = ({ initialData }: { initialData: ApiPaginatedResponse<Character> }) => {
+  const { items: characters, lastNodeRef, isPending, isLoadingMore, loadError } = useInfiniteScroll<Character>(
+    initialData.results ?? [],
+    initialData.info?.next ?? null
+  );
+  
+  return (
+    <>
+      {characters.map((character: Character) => (
         <div key={character.id}>
           <Link to={`${character.id}`} className={style.characterCard}>
             <img src={character.image} alt={character.name} />
@@ -26,6 +51,9 @@ export const CharactersPage = () => {
           </Link>
         </div>
       ))}
+      {(isPending || isLoadingMore) && <h2>Загрузка...</h2>}
+      {loadError && (<p>{loadError}</p>)}
+      <div ref={lastNodeRef} style={{ opacity: 0 }}></div>
     </>
   );
 }
